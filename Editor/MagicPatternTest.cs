@@ -7,7 +7,7 @@ using System.Collections;
 public class MagicPatternTest {
 
 	[Test]
-	public void MagicPatternEqualsTestDupulicated() {
+	public void NotEqualsDupulicated() {
         MagicPatterns m1 = new MagicPatterns();
         MagicPatterns m2 = new MagicPatterns();
 
@@ -18,7 +18,7 @@ public class MagicPatternTest {
     }
     
     [Test]
-    public void MagicPatternEqualsTestVoid()
+    public void NotEqualsEmpty()
     {
         MagicPatterns m1 = new MagicPatterns();
         m1.linesByNumber.Add(new LineByNumber(2, 3));
@@ -27,7 +27,7 @@ public class MagicPatternTest {
     }
 
     [Test]
-    public void MagicPatternEqualsTestTrue()
+    public void EqualsNormal()
     {
         MagicPatterns m1 = new MagicPatterns();
         m1.linesByNumber.Add(new LineByNumber(2, 3));
@@ -35,4 +35,13 @@ public class MagicPatternTest {
         m2.linesByNumber.Add(new LineByNumber(3, 2));
         Assert.That(m1.Equals(m2));
     }
+
+    [Test]
+    public void FromIntArray()
+    {
+        MagicPatterns m1 = MagicPatterns.FromIntArray(new int[] {2, 3, 5, 9 });
+        MagicPatterns m2 = MagicPatterns.FromIntArray(new int[] {3, 2, 9, 5 });
+        Assert.That(m1.Equals(m2));
+    }
+
 }

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System;
 
 public class MagicPatterns
 {
@@ -43,5 +45,26 @@ public class MagicPatterns
     public override int GetHashCode()
     {
         return -1388673660 + EqualityComparer<List<LineByNumber>>.Default.GetHashCode(linesByNumber);
+    }
+
+    public static MagicPatterns FromIntArray(int[] array)
+    {
+        var magicPatterns = new MagicPatterns();
+        var oddIndexValues = array.Where((value, index) => index % 2 == 1);
+        var evenIndexValues = array.Where((value, index) => index % 2 == 0);
+        if (oddIndexValues.Count() != evenIndexValues.Count())
+        {
+            throw new Exception("the array's size wasn't odd.");
+        }
+        for (int i = 0; i < oddIndexValues.Count(); i++)
+        {
+            magicPatterns.linesByNumber.Add(
+                new LineByNumber(
+                    oddIndexValues.ElementAt(i),
+                    evenIndexValues.ElementAt(i)
+                    )
+            );
+        }
+        return magicPatterns;
     }
 }
