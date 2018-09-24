@@ -21,18 +21,6 @@ public class MagicPatternLoader : MonoBehaviour
         public int[] magicPatterns;
     }
 
-    [Serializable]
-    public class MagicPatterns
-    {
-        public int[][] patterns;
-    }
-
-    [Serializable]
-    public class LineByNumberArray
-    {
-        public int[] pattern;
-    }
-
 
 
     // Use this for initialization

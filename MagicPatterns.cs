@@ -6,15 +6,12 @@ public class MagicPatterns
 {
     public List<LineByNumber> linesByNumber;
 
-    public MagicPatterns(){}
+    public MagicPatterns(){
+        linesByNumber = new List<LineByNumber>();
+    }
     public MagicPatterns(List<LineByNumber> linesByNumber_)
     {
         linesByNumber = linesByNumber_;
-    }
-    public MagicPatterns addLine(LineByNumber lineByNumber)
-    {
-        linesByNumber.Add(lineByNumber);
-        return this;
     }
 
     public override bool Equals(object obj)
