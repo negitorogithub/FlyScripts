@@ -5,10 +5,12 @@ using UnityEngine;
 public class ParticleGenerator : MonoBehaviour {
 
     public new ParticleSystem particleSystem;
+    private GameObject parent;
 
 
     public void Start()
     {
+        parent = new GameObject();
     }
 
     // Update is called once per frame
@@ -20,6 +22,11 @@ public class ParticleGenerator : MonoBehaviour {
         particleSystem2Gen.transform.forward = (endPosition - startPosition - rotationOffset).normalized;
         var main = particleSystem2Gen.main;
         main.startLifetime = new ParticleSystem.MinMaxCurve((endPosition - startPosition).magnitude * 10 / main.startSpeed.constant);
-        Instantiate(particleSystem2Gen);
+        Instantiate(particleSystem2Gen, parent.transform);
+    }
+
+    public void DeleteAllParticles()
+    {
+        parent = new GameObject();
     }
 }

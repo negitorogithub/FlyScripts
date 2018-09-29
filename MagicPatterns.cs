@@ -7,13 +7,20 @@ using System;
 public class MagicPatterns
 {
     public List<LineByNumber> linesByNumber;
+    public string name;
+    public string particleName;
 
-    public MagicPatterns(){
+    public MagicPatterns(string name_ = "", string particleName_ = "")
+    {
         linesByNumber = new List<LineByNumber>();
+        name = name_;
+        particleName = particleName_;
     }
-    public MagicPatterns(List<LineByNumber> linesByNumber_)
+
+    public MagicPatterns SetList(List<LineByNumber> linesByNumber_)
     {
         linesByNumber = linesByNumber_;
+        return this;
     }
 
     public override bool Equals(object obj)
@@ -41,15 +48,20 @@ public class MagicPatterns
         return true;
     }
 
+    public void ResetList()
+    {
+        linesByNumber = new List<LineByNumber>();
+    }
+
     //良く分からん
     public override int GetHashCode()
     {
         return -1388673660 + EqualityComparer<List<LineByNumber>>.Default.GetHashCode(linesByNumber);
     }
 
-    public static MagicPatterns FromIntArray(int[] array)
+    public static MagicPatterns FromIntArray(int[] array, string name_ = "", string particleName_ = "")
     {
-        var magicPatterns = new MagicPatterns();
+        var magicPatterns = new MagicPatterns(name_: name_, particleName_: particleName_);
         var oddIndexValues = array.Where((value, index) => index % 2 == 1);
         var evenIndexValues = array.Where((value, index) => index % 2 == 0);
         if (oddIndexValues.Count() != evenIndexValues.Count())
@@ -67,4 +79,6 @@ public class MagicPatterns
         }
         return magicPatterns;
     }
+
+    
 }
