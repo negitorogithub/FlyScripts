@@ -7,32 +7,25 @@ using System.IO;
 
 public class GenerateMagicParticle : MonoBehaviour
 {
-    public LoadMagicPattern magicPatternLoader;
-    public OnPointerClickingEnterHolder enterHolder;
+    public SendMagicSummoned sendMagicGenerate;
     private GameObject parent;
 
     void Start()
     {
         parent = new GameObject();
-        enterHolder.addedLineNumber.Subscribe(_ =>
+
+        sendMagicGenerate.subject.Subscribe(magic =>
         {
-            var equaledMagic = magicPatternLoader.Equaled(new MagicPatterns().SetList(enterHolder.lines));
-            if (equaledMagic != null)
-            {
-                AssetBundle assetBundle = AssetBundle.LoadFromFile(
-                        Path.Combine(
-                            Application.streamingAssetsPath, "magicparticles"
-                            )
-                    );
-                GameObject particle_ = assetBundle.LoadAsset<GameObject>(equaledMagic.particleName);
+            AssetBundle assetBundle = AssetBundle.LoadFromFile(
+                    Path.Combine(
+                        Application.streamingAssetsPath, "magicparticles"
+                        )
+                );
+            GameObject particle_ = assetBundle.LoadAsset<GameObject>(magic.particleName);
             Instantiate(particle_, parent.transform);
-            }
-        }
-        );
+        });
     }
-
-
-
+   
     // Update is called once per frame
     public void DeleteAllParticles()
     {
