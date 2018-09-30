@@ -27,6 +27,7 @@ public class GenerateTrails : MonoBehaviour {
 
     public void DeleteAllParticles()
     {
+        Destroy(parent);
         parent = new GameObject();
     }
 }

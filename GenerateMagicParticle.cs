@@ -7,8 +7,10 @@ using System.IO;
 
 public class GenerateMagicParticle : MonoBehaviour
 {
+    private const string Path2Load = "magicparticles";
     public SendMagicSummoned sendMagicGenerate;
     private GameObject parent;
+    private AssetBundle assetBundle;
 
     void Start()
     {
@@ -16,11 +18,14 @@ public class GenerateMagicParticle : MonoBehaviour
 
         sendMagicGenerate.subject.Subscribe(magic =>
         {
-            AssetBundle assetBundle = AssetBundle.LoadFromFile(
+            if (assetBundle == null)
+            {
+                assetBundle = AssetBundle.LoadFromFile(
                     Path.Combine(
-                        Application.streamingAssetsPath, "magicparticles"
+                        Application.streamingAssetsPath, Path2Load
                         )
                 );
+            }
             GameObject particle_ = assetBundle.LoadAsset<GameObject>(magic.particleName);
             Instantiate(particle_, parent.transform);
         });
@@ -29,6 +34,7 @@ public class GenerateMagicParticle : MonoBehaviour
     // Update is called once per frame
     public void DeleteAllParticles()
     {
+        Destroy(parent);
         parent = new GameObject();
     }
 }

@@ -6,9 +6,9 @@ using System.Linq;
 
 public class OnPointerClickingEnterHolder : MonoBehaviour
 {
-
+    private const int NOT_ENTERED = -1;
     public List<OnPointerClickingEnter> onPointerClickingEnters;
-    private int lastEnteredIndex = -1; //デフォルト値
+    private int lastEnteredIndex = NOT_ENTERED; //デフォルト値
     public List<LineByNumber> lines;
     public Subject<LineByNumber> addedLineNumber;
     public Subject<LineByVector3> addedLinePosition;
@@ -32,7 +32,7 @@ public class OnPointerClickingEnterHolder : MonoBehaviour
                 {
                     Debug.Log(item.Index);
 
-                    if (lastEnteredIndex != -1 & lastEnteredIndex != item.Index)
+                    if (lastEnteredIndex != NOT_ENTERED & lastEnteredIndex != item.Index)
                     {
                         lines.Add(new LineByNumber(lastEnteredIndex, item.Index));
                         addedLineNumber.OnNext(lines.Last());
@@ -50,6 +50,7 @@ public class OnPointerClickingEnterHolder : MonoBehaviour
     public void ResetExists()
     {
         lines = new List<LineByNumber>();
+        lastEnteredIndex = NOT_ENTERED;
     }
 
 }

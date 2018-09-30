@@ -9,12 +9,12 @@ public class SendMagicSummoned : MonoBehaviour {
     public OnPointerClickingEnterHolder enterHolder;
     public Subject<MagicPatterns> subject;
 
-    private void Awake()
+    void Awake()
     {
         subject = new Subject<MagicPatterns>();
     }
 
-    private void Start()
+    void Start()
     {
         enterHolder.addedLineNumber.Subscribe(_ =>
         {
