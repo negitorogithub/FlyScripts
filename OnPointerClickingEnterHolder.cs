@@ -46,5 +46,10 @@ public class OnPointerClickingEnterHolder : MonoBehaviour
                 );
         }
     }
-    
+
+    public void ResetExists()
+    {
+        lines = new List<LineByNumber>();
+    }
+
 }

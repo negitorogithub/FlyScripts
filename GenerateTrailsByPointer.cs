@@ -6,12 +6,12 @@ using UniRx;
 public class GenerateTrailsByPointer : MonoBehaviour {
 
     public OnPointerClickingEnterHolder onPointerClickingEnterHolder;
-    public ParticleGenerator particleGenerator;
+    public GenerateTrails trailsGenerator;
 
 	// Use this for initialization
 	void Start () {
         onPointerClickingEnterHolder.addedLinePosition.Subscribe(lineByVector3 => {
-            particleGenerator.Generate(lineByVector3.V1, lineByVector3.V2);
+            trailsGenerator.Generate(lineByVector3.V1, lineByVector3.V2);
         } );
 	}
 	
@@ -19,4 +19,9 @@ public class GenerateTrailsByPointer : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void DeleteTrails()
+    {
+        trailsGenerator.DeleteAllParticles();
+    }
 }

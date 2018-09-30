@@ -7,12 +7,13 @@ using System.IO;
 
 public class GenerateMagicParticle : MonoBehaviour
 {
-    public MagicPatternLoader magicPatternLoader;
+    public LoadMagicPattern magicPatternLoader;
     public OnPointerClickingEnterHolder enterHolder;
+    private GameObject parent;
 
     void Start()
     {
-
+        parent = new GameObject();
         enterHolder.addedLineNumber.Subscribe(_ =>
         {
             var equaledMagic = magicPatternLoader.Equaled(new MagicPatterns().SetList(enterHolder.lines));
@@ -24,15 +25,17 @@ public class GenerateMagicParticle : MonoBehaviour
                             )
                     );
                 GameObject particle_ = assetBundle.LoadAsset<GameObject>(equaledMagic.particleName);
-                Instantiate(particle_);
+            Instantiate(particle_, parent.transform);
             }
         }
         );
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
+
+    // Update is called once per frame
+    public void DeleteAllParticles()
+    {
+        parent = new GameObject();
     }
 }

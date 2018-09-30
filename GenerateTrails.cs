@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParticleGenerator : MonoBehaviour {
+public class GenerateTrails : MonoBehaviour {
 
     public new ParticleSystem particleSystem;
     private GameObject parent;

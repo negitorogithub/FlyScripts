@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Linq;
 using System.IO;
 
-public class MagicPatternLoader : MonoBehaviour
+public class LoadMagicPattern : MonoBehaviour
 {
     public List<MagicPatterns> magicPatternsList;
     private String rootDir = "MasterData";
@@ -33,16 +33,7 @@ public class MagicPatternLoader : MonoBehaviour
         magicPatternsList = new List<MagicPatterns>();
         //Resources.Load("Magics") as TextAsset; //Resourcesフォルダから対象テキストを取得
         string itemJson = File.ReadAllText(Path.Combine(Application.dataPath, rootDir, docName)); //テキスト全体をstring型で入れる変数を用意して入れる
-        MagicRoot magicRoot = JsonUtility.FromJson<MagicRoot>(itemJson);
-        foreach (var magicIndexed in magicRoot.root.Select((value, index) => new { value, index }))
-        {
-            magicPatternsList.Add(
-                MagicPatterns.FromIntArray(magicIndexed.value.magicPatterns,
-                magicRoot.root[magicIndexed.index].name,
-                magicRoot.root[magicIndexed.index].particleName));
-        }
-        Debug.Log(itemJson);
-        Debug.Log(Path.Combine(Application.dataPath, "Particles"));
+        magicPatternsList = LoadFromJson(itemJson);
     }
 
     //nullを返すことがある!
@@ -57,6 +48,21 @@ public class MagicPatternLoader : MonoBehaviour
         {
             return magicPatterns2Return;
         }
+    }
+
+    public static List<MagicPatterns> LoadFromJson(string itemJson)
+    {
+        var magicPatternsList_ = new List<MagicPatterns>();
+        MagicRoot magicRoot = JsonUtility.FromJson<MagicRoot>(itemJson);
+        foreach (var magicIndexed in magicRoot.root.Select((value, index) => new { value, index }))
+        {
+            magicPatternsList_.Add(
+                MagicPatterns.FromIntArray(magicIndexed.value.magicPatterns,
+                magicRoot.root[magicIndexed.index].name,
+                magicRoot.root[magicIndexed.index].particleName)
+                );
+        }
+        return magicPatternsList_;
     }
 
 }
