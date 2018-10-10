@@ -32,5 +32,14 @@ public class ShowConstatntText : MonoBehaviour, ShowText {
 
     }
 
+    void Start()
+    {
+        textUI = GetComponent<Text>();
+    }
+
+    public void ResetCursor()
+    {
+        cursor = 0;
+    }
 }
 
