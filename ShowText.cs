@@ -1,6 +1,6 @@
 ﻿
 public interface ShowText
 {
-    void ShowNextText();
+    string ShowNextText();
     
 }
