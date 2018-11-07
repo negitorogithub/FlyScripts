@@ -13,8 +13,7 @@ public class ShowConstatntText : MonoBehaviour, ShowText {
     public string ShowNextText()
     {
         string text2set;
-
-        textUI.text = text2set;
+        text2set = loadScenario.constantScenario.texts[Mathf.Max(loadScenario.constantScenario.texts.Length ,cursor)];
         cursor++;
         return text2set;
 
