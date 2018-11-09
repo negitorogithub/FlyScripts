@@ -25,19 +25,19 @@ public class MoveByKey : MonoBehaviour
 
 
         Vector3 vector3toSet = new Vector3();
-        if (Input.GetKey("up"))
+        if (Input.GetKey(KeyCode.W))
         {
             vector3toSet += rigidBody.transform.forward;
         }
-        if (Input.GetKey("down"))
+        if (Input.GetKey(KeyCode.S))
         {
             vector3toSet -= rigidBody.transform.forward;
         }
-        if (Input.GetKey("right"))
+        if (Input.GetKey(KeyCode.D))
         {
             vector3toSet += rigidBody.transform.right;
         }
-        if (Input.GetKey("left"))
+        if (Input.GetKey(KeyCode.A))
         {
             vector3toSet -= rigidBody.transform.right;
         }

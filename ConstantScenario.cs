@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 
-public class ConstantScenario: MonoBehaviour 
+public class ConstantScenario
 {
     public string[] texts;
     public bool hasFired;
@@ -15,11 +15,5 @@ public class ConstantScenario: MonoBehaviour
     {
         this.texts = texts;
         this.hasFired = hasFired;
-    }
-
-    public ConstantScenario(TranslatableConstantScenario translatable)
-    {
-        this.texts = translatable.translated();
-        this.hasFired = translatable.hasFired;
     }
 }

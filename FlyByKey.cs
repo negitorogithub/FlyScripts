@@ -23,7 +23,7 @@ public class FlyByKey : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             flySubject.OnNext(Unit.Default);
         }
