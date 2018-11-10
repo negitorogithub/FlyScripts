@@ -5,21 +5,16 @@ public class ConstantScenarioModel : MonoBehaviour, ShowText
 {
 
     public TextAsset textAsset;
+    private LoadConstantScenario loadConstant;
 
     public void ShowNextText()
     {
-        /*
-         *  
-         *  テキストアセットと
-         *  一番近いShowTextとの連携
-         * 
-         */
+        loadConstant.LoadNextText();
     }
 
     void Start()
     {
+        loadConstant = new LoadConstantScenario(textAsset);
     }
-
-
 
 }

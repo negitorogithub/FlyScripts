@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UniRx;
 using System;
 
-public class ShowConstatntText : MonoBehaviour{
+public class SubscribeConstatntText2UI : MonoBehaviour{
 
     public LoadConstantScenario loadScenario;
     private Text textUI;

@@ -11,32 +11,31 @@ public class LoadConstantScenario
 
     private TextAsset textAsset;
     private ConstantScenario constantScenario;
-    private LoadConstantScenario loadScenario;
     public static Subject<string> onShowText;
     private int cursor = 0;
 
     public LoadConstantScenario(TextAsset textAsset_)
     {
+        textAsset = textAsset_;
         string deviceLanguage = Application.systemLanguage.ToString();
         constantScenario = JsonUtility.FromJson<TranslatableConstantScenario>(textAsset.text).translated();
         onShowText = new Subject<string>();
-        textAsset = textAsset_;
     }
 
 
-    public string GetNextText()
+    public string LoadNextText()
     {
-        if (loadScenario.constantScenario.texts.Length == 0)
+        if (constantScenario.texts.Length == 0)
         {
             Debug.Log("empty message in " + textAsset.name);
         }
         string text2set;
 
-        if (loadScenario.constantScenario.texts.Length - 1 < cursor)
+        if (constantScenario.texts.Length - 1 < cursor)
         {
             onShowText.OnCompleted();
         }
-        text2set = loadScenario.constantScenario.texts[Mathf.Min(loadScenario.constantScenario.texts.Length - 1, cursor)];
+        text2set = constantScenario.texts[Mathf.Min(constantScenario.texts.Length - 1, cursor)];
         cursor++;
         onShowText.OnNext(text2set);
         return text2set;
