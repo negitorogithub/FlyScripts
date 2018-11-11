@@ -7,13 +7,29 @@ using System;
 
 public class SubscribeConstatntText2UI : MonoBehaviour{
 
-    public LoadConstantScenario loadScenario;
-    private Text textUI;
+    public ConstantScenarioModel scenarioModel;
+    public Image Back;
+    public Text textUI;
 
     private void Start()
     {
-        textUI = GetComponent<Text>();
-        LoadConstantScenario.onShowText.SubscribeToText(textUI);
+        SetVisiblityAll(false);
+        scenarioModel.loadConstant.onShowText.Subscribe(
+                str =>
+                    {
+                        SetVisiblityAll(true);
+                        textUI.text = str;
+                    }
+            );
+        scenarioModel.loadConstant.onEndShowing.Subscribe(
+                _ => SetVisiblityAll(false)
+                );
+    }
+
+    private void SetVisiblityAll(bool shouldShow)
+    {
+        Back.enabled = shouldShow;
+        textUI.enabled = shouldShow;
     }
 }
 

@@ -11,7 +11,8 @@ public class LoadConstantScenario
 
     private TextAsset textAsset;
     private ConstantScenario constantScenario;
-    public static Subject<string> onShowText;
+    public Subject<string> onShowText;
+    public Subject<Unit> onEndShowing;
     private int cursor = 0;
 
     public LoadConstantScenario(TextAsset textAsset_)
@@ -20,6 +21,7 @@ public class LoadConstantScenario
         string deviceLanguage = Application.systemLanguage.ToString();
         constantScenario = JsonUtility.FromJson<TranslatableConstantScenario>(textAsset.text).translated();
         onShowText = new Subject<string>();
+        onEndShowing = new Subject<Unit>();
     }
 
 
@@ -30,14 +32,13 @@ public class LoadConstantScenario
             Debug.Log("empty message in " + textAsset.name);
         }
         string text2set;
-
+        text2set = constantScenario.texts[Mathf.Min(constantScenario.texts.Length - 1, cursor)];
+        onShowText.OnNext(text2set);
         if (constantScenario.texts.Length - 1 < cursor)
         {
-            onShowText.OnCompleted();
+            onEndShowing.OnNext(Unit.Default);
         }
-        text2set = constantScenario.texts[Mathf.Min(constantScenario.texts.Length - 1, cursor)];
         cursor++;
-        onShowText.OnNext(text2set);
         return text2set;
     }
 

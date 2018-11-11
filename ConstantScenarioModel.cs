@@ -5,14 +5,14 @@ public class ConstantScenarioModel : MonoBehaviour, ShowText
 {
 
     public TextAsset textAsset;
-    private LoadConstantScenario loadConstant;
+    public LoadConstantScenario loadConstant { get; private set; }
 
     public void ShowNextText()
     {
         loadConstant.LoadNextText();
     }
 
-    void Start()
+    void Awake()
     {
         loadConstant = new LoadConstantScenario(textAsset);
     }
