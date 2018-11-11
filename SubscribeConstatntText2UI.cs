@@ -22,8 +22,11 @@ public class SubscribeConstatntText2UI : MonoBehaviour{
                     }
             );
         scenarioModel.loadConstant.onEndShowing.Subscribe(
-                _ => SetVisiblityAll(false)
-                );
+                _ => {
+                    SetVisiblityAll(false);
+                    scenarioModel.loadConstant.ResetCursor();
+                    }
+                    );
     }
 
     private void SetVisiblityAll(bool shouldShow)

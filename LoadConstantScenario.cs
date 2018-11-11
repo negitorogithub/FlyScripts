@@ -13,7 +13,7 @@ public class LoadConstantScenario
     private ConstantScenario constantScenario;
     public Subject<string> onShowText;
     public Subject<Unit> onEndShowing;
-    private int cursor = 0;
+    private int cursor = -1;//ResetCursorのタイミングがonEndShowingの為;
 
     public LoadConstantScenario(TextAsset textAsset_)
     {
@@ -27,6 +27,7 @@ public class LoadConstantScenario
 
     public string LoadNextText()
     {
+        cursor++;
         if (constantScenario.texts.Length == 0)
         {
             Debug.Log("empty message in " + textAsset.name);
@@ -38,12 +39,11 @@ public class LoadConstantScenario
         {
             onEndShowing.OnNext(Unit.Default);
         }
-        cursor++;
         return text2set;
     }
 
     public void ResetCursor()
     {
-        cursor = 0;
+        cursor = -1;
     }
 }
