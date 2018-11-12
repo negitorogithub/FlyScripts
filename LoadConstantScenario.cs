@@ -38,6 +38,7 @@ public class LoadConstantScenario
         if (constantScenario.texts.Length - 1 < cursor)
         {
             onEndShowing.OnNext(Unit.Default);
+            ResetCursor();
         }
         return text2set;
     }

@@ -8,11 +8,16 @@ public class TalkToNearest : MonoBehaviour
 {
     private ColidingObjectHolder colidings;
     private Subject<Unit> subject;
+    public Subject<GameObject> talkedObject;
+    public Subject<string> talkedContent;
+
     public float intervalSeonds;
 
     private void Awake()
     {
         subject = new Subject<Unit>();
+        talkedObject = new Subject<GameObject>();
+        talkedContent = new Subject<string>();
     }
 
     // Use this for initialization
@@ -24,7 +29,7 @@ public class TalkToNearest : MonoBehaviour
             float min = float.MaxValue;
             GameObject minObj = null;
             var showTexts = colidings.gameObjects
-                .Where(obj => obj.GetComponent<ShowText>() != null);
+                .Where(obj => obj.GetComponent<ILoadText>() != null);
 
             foreach (var item in showTexts)
             {
@@ -33,9 +38,13 @@ public class TalkToNearest : MonoBehaviour
                     minObj = item;
                 }
             }
-            minObj?.GetComponent<ShowText>()?.ShowNextText();
-        }
 
+            if (minObj == null)
+            {
+                return;
+            }
+            minObj?.GetComponent<ILoadText>()?.LoadNextText();
+        }
         );
     }
 
