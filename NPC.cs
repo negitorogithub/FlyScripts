@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-interface NPC
+public interface NPC
 {
     void ShowText();
     GameObject getBaloon();

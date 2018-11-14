@@ -8,7 +8,7 @@ public class TalkToNearest : MonoBehaviour
 {
     private ColidingObjectHolder colidings;
     private Subject<Unit> subject;
-    public Subject<GameObject> talkedObject;
+    public static Subject<GameObject> talkedObject;
     public Subject<string> talkedContent;
 
     public float intervalSeonds;
@@ -43,7 +43,8 @@ public class TalkToNearest : MonoBehaviour
             {
                 return;
             }
-            minObj?.GetComponent<ILoadText>()?.LoadNextText();
+            minObj.GetComponent<ILoadText>()?.LoadNextText();
+            talkedObject.OnNext(minObj);
         }
         );
     }
