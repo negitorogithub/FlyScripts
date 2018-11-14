@@ -20,7 +20,6 @@ public class TalkToNearest : MonoBehaviour
         talkedContent = new Subject<string>();
     }
 
-    // Use this for initialization
     void Start()
     {
         colidings = GetComponent<ColidingObjectHolder>();
@@ -49,14 +48,11 @@ public class TalkToNearest : MonoBehaviour
         );
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKey(KeyCode.Mouse0))
         {
             subject.OnNext(Unit.Default);
         }
-
-
     }
 }

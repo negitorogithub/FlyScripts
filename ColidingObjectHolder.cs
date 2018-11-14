@@ -21,10 +21,13 @@ public class ColidingObjectHolder : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         gameObjects.Add(other.gameObject);
+        Debug.Log(other.name + "in");
     }
 
     private void OnTriggerExit(Collider other)
     {
         gameObjects.Remove(other.gameObject);
+        Debug.Log(other.name + "out");
+
     }
 }
