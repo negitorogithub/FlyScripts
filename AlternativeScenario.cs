@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class AlternativeScenario : MonoBehaviour
+﻿public class AlternativeScenario
 {
     public string text;
     public bool hasFired;
