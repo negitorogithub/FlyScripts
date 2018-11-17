@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using UniRx;
+﻿using UniRx;
+using UnityEngine;
 
 public class ConstantScenarioModelOfNPC : MonoBehaviour, ILoadText
 {

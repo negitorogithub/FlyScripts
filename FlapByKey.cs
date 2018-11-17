@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UniRx;
+﻿using UniRx;
 using UnityEngine;
 
 public class FlapByKey : MonoBehaviour
@@ -28,7 +26,7 @@ public class FlapByKey : MonoBehaviour
 
             .Subscribe(_ =>
             {
-                rigidBody.AddForceAtPosition((transform.right.normalized + Vector3.up.normalized).normalized * 0.2f, transform.position);
+                rigidBody.AddForceAtPosition(( transform.right.normalized + Vector3.up.normalized ).normalized * 0.2f, transform.position);
                 wingDownSubject.OnNext(Unit.Default);
             }
             );

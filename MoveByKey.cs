@@ -2,6 +2,10 @@
 
 public class MoveByKey : MonoBehaviour, IPausable
 {
+    /*
+     * 
+     * 
+     */
     private bool isPausing;
     private Rigidbody rigidBody;
     public float playerSpeed;

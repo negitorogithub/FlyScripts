@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UniRx;
 using UnityEngine;
-using UniRx;
 
-public class FlyByKey : MonoBehaviour, IPausable {
+public class FlyByKey : MonoBehaviour, IPausable
+{
     private Rigidbody rigidBody;
     private Subject<Unit> flySubject;
     private bool isPausing;
@@ -15,14 +14,16 @@ public class FlyByKey : MonoBehaviour, IPausable {
     }
 
     // Use this for initialization
-    void Start () {
-        
+    void Start()
+    {
+
         rigidBody = GetComponent<Rigidbody>();
         flySubject.ThrottleFirst(System.TimeSpan.FromMilliseconds(400f)).Subscribe(_ => rigidBody.AddForce(Vector3.up * power));
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         if (isPausing)
         {
             return;
