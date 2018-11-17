@@ -32,7 +32,6 @@ public class TalkToNearest : MonoBehaviour
 
             foreach (var item in showTexts)
             {
-                Debug.Log(item.name +"'s distance is "+ Vector3.Distance(transform.position, item.transform.position));
                 if (Vector3.Distance(transform.position, item.transform.position) < min)
                 {
                     minObj = item;

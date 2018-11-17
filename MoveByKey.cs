@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class MoveByKey : MonoBehaviour
+public class MoveByKey : MonoBehaviour, IPausable
 {
-
+    private bool isPausing;
     private Rigidbody rigidBody;
     public float playerSpeed;
     private float defaultSpeed = 1f;
@@ -18,11 +16,16 @@ public class MoveByKey : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (rigidBody.velocity.magnitude > 1)
+        if (isPausing)
         {
+            rigidBody.velocity = Vector3.zero;
             return;
         }
 
+        if (!Input.anyKey)
+        {
+            return;
+        }
 
         Vector3 vector3toSet = new Vector3();
         if (Input.GetKey(KeyCode.W))
@@ -41,9 +44,21 @@ public class MoveByKey : MonoBehaviour
         {
             vector3toSet -= rigidBody.transform.right;
         }
+
+        vector3toSet.y = 0;
         vector3toSet.Normalize();
         vector3toSet = vector3toSet * playerSpeed;
-        rigidBody.velocity += vector3toSet;
+        rigidBody.velocity = vector3toSet;
 
     }
+
+    public void Pause()
+    {
+        isPausing = true;
+    }
+
+    public void Resume()
+    {
+        isPausing = false;
+    }   
 }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-public class FlyByKey : MonoBehaviour {
+public class FlyByKey : MonoBehaviour, IPausable {
     private Rigidbody rigidBody;
     private Subject<Unit> flySubject;
-
+    private bool isPausing;
     public float power;
 
     private void Awake()
@@ -23,9 +23,23 @@ public class FlyByKey : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if (isPausing)
+        {
+            return;
+        }
         if (Input.GetKey(KeyCode.LeftShift))
         {
             flySubject.OnNext(Unit.Default);
         }
+    }
+
+    public void Pause()
+    {
+        isPausing = true;
+    }
+
+    public void Resume()
+    {
+        isPausing = false;
     }
 }
