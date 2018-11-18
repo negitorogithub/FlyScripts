@@ -1,11 +1,11 @@
-﻿public class AlternativeScenario
+﻿using System.Collections.Generic;
+[System.Serializable]
+public class AlternativeScenario
 {
-    public string text;
-    public bool hasFired;
+    public List<AlternativeText> alternatives;
 
-    public AlternativeScenario(string text, bool hasFired)
+    public AlternativeScenario(List<AlternativeText> alternatives)
     {
-        this.text = text;
-        this.hasFired = hasFired;
+        this.alternatives = alternatives;
     }
 }

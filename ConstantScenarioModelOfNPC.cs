@@ -4,7 +4,7 @@ using UnityEngine;
 public class ConstantScenarioModelOfNPC : MonoBehaviour, ILoadText
 {
     public TextAsset textAsset;
-    public LoadAlternativeScenario loadConstant { get; private set; }
+    public LoadConstantScenario loadConstant { get; private set; }
     public static Subject<string> onShowText;
     public static Subject<Unit> onEndShowing;
 
@@ -15,7 +15,7 @@ public class ConstantScenarioModelOfNPC : MonoBehaviour, ILoadText
 
     void Awake()
     {
-        loadConstant = new LoadAlternativeScenario(textAsset);
+        loadConstant = new LoadConstantScenario(textAsset);
         onShowText = new Subject<string>();
         onEndShowing = new Subject<Unit>();
     }

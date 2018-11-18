@@ -1,35 +1,32 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class LoadAlternativeScenario
 {
     private const string Japanese = "Japanese";
     private TextAsset textAsset;
     private AlternativeScenario alternativeScenario;
-    public Subject<string> onShowText;
+    public Subject<List<AlternativeText>> onShowText;
 
     public LoadAlternativeScenario(TextAsset textAsset_)
     {
         textAsset = textAsset_;
         string deviceLanguage = Application.systemLanguage.ToString();
-        alternativeScenario = JsonUtility.FromJson<TranslatableAlternativeScenario>(textAsset.text).translated();
-        onShowText = new Subject<string>();
+        alternativeScenario = JsonUtility.FromJson<TranslatableAlternativeScenario>(textAsset.text).Translated();
+        onShowText = new Subject<List<AlternativeText>>();
     }
 
 
-    public string LoadNextText()
+    public List<AlternativeText> LoadAlternatives()
     {
-        if (alternativeScenario.text.Length == 0)
+        if (alternativeScenario.alternatives.Capacity == 0)
         {
             Debug.Log("empty message in " + textAsset.name);
         }
-        string text2set;
-        text2set = alternativeScenario.text;
-        onShowText.OnNext(text2set);
-        return text2set;
+        List<AlternativeText> texts2set;
+        texts2set = alternativeScenario.alternatives;
+        onShowText.OnNext(texts2set);
+        return texts2set;
     }
 }
