@@ -15,7 +15,7 @@ public class ConstantScenarioModelOfNPC : MonoBehaviour, ILoadText
 
     void Awake()
     {
-        loadConstant = new LoadConstantScenario(textAsset);
+        loadConstant = new LoadConstantScenario(textAsset.text);
         onShowText = new Subject<string>();
         onEndShowing = new Subject<Unit>();
     }

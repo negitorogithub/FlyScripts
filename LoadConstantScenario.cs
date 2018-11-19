@@ -11,11 +11,10 @@ public class LoadConstantScenario
     public Subject<Unit> onEndShowing;
     private int cursor = -1;//ResetCursorのタイミングがonEndShowingの為;
 
-    public LoadConstantScenario(TextAsset textAsset_)
+    public LoadConstantScenario(string json)
     {
-        textAsset = textAsset_;
         string deviceLanguage = Application.systemLanguage.ToString();
-        constantScenario = JsonUtility.FromJson<TranslatableConstantScenario>(textAsset.text).translated();
+        constantScenario = JsonUtility.FromJson<TranslatableConstantScenario>(json).translated();
         onShowText = new Subject<string>();
         onEndShowing = new Subject<Unit>();
     }
@@ -26,7 +25,7 @@ public class LoadConstantScenario
         cursor++;
         if (constantScenario.texts.Length == 0)
         {
-            Debug.Log("empty message in " + textAsset.name);
+            Debug.Log("empty message");
         }
         string text2set;
         text2set = constantScenario.texts[Mathf.Min(constantScenario.texts.Length - 1, cursor)];

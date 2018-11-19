@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UniRx;
 using System;
 
-public class SubscribeNPCText2UI : MonoBehaviour
+public class SubscribeNPCConstantText2UI : MonoBehaviour
 {
 
     public Image Back;

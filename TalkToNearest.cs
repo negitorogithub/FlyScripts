@@ -43,7 +43,7 @@ public class TalkToNearest : MonoBehaviour
             {
                 return;
             }
-            minObj.GetComponent<ILoadText>()?.LoadNextText();
+            minObj.GetComponent<ILoadText>()?.LoadNextText();//LoadNextTextが一回余分に呼ばれているが、LoadnextTextのバグの為うまくいっている
             talkedObject.OnNext(minObj);
         }
         );
