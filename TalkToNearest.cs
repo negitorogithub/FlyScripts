@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 using UniRx;
 using System.Linq;
+using System.Collections.Generic;
 
 public class TalkToNearest : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class TalkToNearest : MonoBehaviour
             float min = float.MaxValue;
             GameObject minObj = null;
             var showTexts = colidings.gameObjects
-                .Where(obj => obj.GetComponent<ILoadText>() != null);
+                .Where(obj => obj.GetComponents<ILoadText>() != null);
 
             foreach (var item in showTexts)
             {
@@ -43,7 +44,7 @@ public class TalkToNearest : MonoBehaviour
             {
                 return;
             }
-            minObj.GetComponent<ILoadText>()?.LoadNextText();//LoadNextTextが一回余分に呼ばれているが、LoadnextTextのバグの為うまくいっている
+            minObj.GetComponents<ILoadText>().ToList().ForEach(loadText => loadText.LoadNextText());
             talkedObject.OnNext(minObj);
         }
         );

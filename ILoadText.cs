@@ -1,5 +1,5 @@
 ﻿
 public interface ILoadText
 {
-    string LoadNextText();
+    void LoadNextText();
 }

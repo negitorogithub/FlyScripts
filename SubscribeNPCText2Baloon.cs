@@ -7,15 +7,12 @@ public class SubscribeNPCText2Baloon : MonoBehaviour
 {
     public float jumpPower;
     public float duration;
-    private bool isTalking;
 
-    private void Start()
-    {
-        ConstantScenarioModelOfNPC.onEndShowing.Subscribe(_ => isTalking = false);
-        ConstantScenarioModelOfNPC.onShowText.Subscribe(_ => isTalking = true);
+    private void Start() { 
+    
         TalkToNearest.talkedObject.Subscribe(
                 obj => {
-                    if (!isTalking)
+                    if (!ConstantScenarioModelOfNPC.isTalking)
                     {
                         return;
                     }

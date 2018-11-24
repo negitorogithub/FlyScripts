@@ -1,22 +1,22 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections.Generic;
 using UniRx;
-using System.Collections.Generic;
+using UnityEngine;
 
-public class AlternativeScenarioModelOfNPC : MonoBehaviour
+public class AlternativeScenarioModelOfNPC : MonoBehaviour, ILoadText
 {
     public TextAsset constantScenario;
     public TextAsset alternativeScenario;
     public LoadAlternativeScenario loadAlternarives { get; private set; }
     public static Subject<List<AlternativeText>> onShowAlternatives;
 
-    public List<AlternativeText> LoadNextText()
+    public void LoadNextText()
     {
-        return loadAlternarives.LoadAlternatives();
+        loadAlternarives.LoadAlternatives();
     }
 
     void Awake()
     {
+        onShowAlternatives = new Subject<List<AlternativeText>>();
         loadAlternarives = new LoadAlternativeScenario(alternativeScenario);
     }
 
@@ -26,4 +26,6 @@ public class AlternativeScenarioModelOfNPC : MonoBehaviour
             alternatives => onShowAlternatives.OnNext(alternatives)
             );
     }
+
+
 }

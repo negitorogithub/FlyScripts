@@ -7,7 +7,6 @@ using System;
 
 public class SubscribeNPCConstantText2UI : MonoBehaviour
 {
-
     public Image Back;
     public Text textUI;
 

@@ -2,41 +2,54 @@
 using System.Collections;
 using UnityEngine.UI;
 using UniRx;
+using System.Collections.Generic;
 
 public class SubscribeNPCAlternativeText2UI : MonoBehaviour
 {
     public Transform canvas;
-    public Image Back;
-    public Text textUI;
+    public List<AlternativeComponent> alternativeComponents;
     private int size;
 
     private void Start()
     {
-        SetVisiblityAll(false);
+        Reset();
         AlternativeScenarioModelOfNPC.onShowAlternatives.Subscribe(alternatives =>
         {
-            alternatives.ForEach(alternative => AddAlternative(alternative));
+            alternatives.ForEach(alternative => AddAlternativeUI(alternative));
         });
+        ConstantScenarioModelOfNPC.onEndShowing.Subscribe(_ => Reset());
     }
 
-    private void AddAlternative(AlternativeText alternative)
+    private void AddAlternativeUI(AlternativeText alternative)
     {
+        foreach (var item in alternativeComponents)
+        {
+            if (item.text.text == alternative.text)
+            {
+                return;
+            }
+        }
         size++;
-        Image image;
-        image = Back;
-        image.rectTransform.anchorMax.Set(1, size * 0.1f + 0.3f);
-        image.rectTransform.anchorMin.Set(0.7f, size * 0.1f + 0.2f);
-        Instantiate(image, canvas);
-        // textUIから生成予定
-        Text text = textUI;
-        text.text = alternative.text;
-        Instantiate(text, image.transform);
+        alternativeComponents[size -1].text.text = alternative.text;
+        SetVisiblityOfIndex(true, size - 1);
     }
 
-
-    private void SetVisiblityAll(bool shouldShow)
+    private void Reset()
     {
-        Back.enabled = shouldShow;
-        textUI.enabled = shouldShow;
+        size = 0;
+        alternativeComponents.ForEach(obj => {
+            obj.Back.enabled = false;
+            obj.text.enabled = false;
+            obj.text.text = "";
+            }
+        );
+
     }
+
+    private void SetVisiblityOfIndex(bool shouldShow, int index)
+    {
+        alternativeComponents[index].Back.enabled = shouldShow;
+        alternativeComponents[index].text.enabled = shouldShow;
+    }
+
 }
