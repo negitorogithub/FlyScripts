@@ -1,23 +1,23 @@
-﻿using UniRx;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
+using UniRx;
 
-public class ConstantScenarioModelOfNPC : MonoBehaviour, ILoadText
+public class ConstantScenarioModelOfNPCWithEvent : MonoBehaviour, ILoadText
 {
+
     public TextAsset textAsset;
     public LoadConstantScenario loadConstant { get; private set; }
-    public Subject<string> onShowText_m { get; private set; }
-
 
     public static bool isTalking { get; private set; }
     public static Subject<string> onShowText { get; private set; }
     public static Subject<Unit> onEndShowing { get; private set; }
+
     public void LoadNextText() => loadConstant.LoadNextText();
 
     void Awake()
     {
         loadConstant = new LoadConstantScenario(textAsset.text);
         onShowText = new Subject<string>();
-        onShowText_m = new Subject<string>();
         onEndShowing = new Subject<Unit>();
         isTalking = false;
     }
@@ -25,10 +25,12 @@ public class ConstantScenarioModelOfNPC : MonoBehaviour, ILoadText
     void Start()
     {
         loadConstant.onShowText.Subscribe(
-            str => {
+            str =>
+            {
                 onShowText.OnNext(str);
-                onShowText_m.OnNext(str);
-            });
+                Destroy(this);
+            }
+            );
         loadConstant.onEndShowing.Subscribe(
             _ => onEndShowing.OnNext(Unit.Default)
             );
